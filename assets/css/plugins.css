@@ -1,3 +1,17 @@
+/*-----------------------------------------------------------------------------------
+
+	Template Name: 
+	Template URI: 
+	Description: 
+	Author: design_grid
+	Author URI:
+	Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+			[ All Css Plugins & Helper Classes File ]
+-----------------------------------------------------------------*/
 
 /* == bootstrap == */
 @import url("plugins/bootstrap-grid.min.css");
@@ -23,5 +37,3 @@
 /* == magnific popup == */
 @import url("plugins/magnific-popup.css");
 
-/* == magnific popup == */
-@import url("plugins/youtubepopup.css");

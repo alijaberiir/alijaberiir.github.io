@@ -1,5 +1,47 @@
 @charset "UTF-8";
+/*-----------------------------------------------------------
 
+  Template Name: Droow - Ajax Portfolio Showcase HTML Template
+  Template URI: http://theme.dsngrid.com/droow
+  Description: Droow Ajax Portfolio Showcase HTML Template
+  Author: design_grid
+  Author URI: https://themeforest.net/user/design_grid
+  Version: 1.0.0
+
+-------------------------------------------------------------*/
+/*-----------------------------------------------------------
+
+    1.  Variables
+    2.  Mixins
+      - Mixins Master
+      - Utilities
+    3.  Normalize
+    4.  Helpers
+    5. Typography
+      - Copy
+	  - Headings
+	6. Core
+    7. Navigation
+      - Links
+      - Menus
+	  - Next & Previous
+    8. Content
+      - pages
+      - Comments
+      - Archives
+      - Footer
+    9.Forms
+      - Button
+      - Fields
+    10.Blocks
+    11.Media
+      - captions
+    12.Version Light
+
+-------------------------------------------------------------*/
+/* -------------------------------------------------------
+                     mixins
+-------------------------------------------------------- */
 .post-full-content.single-post > *:not(.gallery),
 .post-full-content.single-post > *:not(.wp-block-quote) > p,
 .widget_text.single-post > *:not(.gallery),
@@ -9483,72 +9525,21 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
   bottom: 30px;
   right: 50px;
   z-index: 3;
+  display:inline-flex;
 }
 
-.dsn-slider .footer-slid .control-nav svg {
-  height: 40px;
+.dsn-slider .footer-slid .control-nav i {
+  font-size: 20px;
   width: 40px;
+  height: 40px;
+  color: #fff;
 }
-
-.dsn-slider .footer-slid .control-nav svg .circle {
-  fill: #fff;
-}
-
-.dsn-slider .footer-slid .control-nav svg .path {
-  fill: none;
-  stroke: #fff;
-  stroke-miterlimit: 10;
-  stroke-width: 1.8px;
-  -webkit-transition: opacity 0.3s, fill 0.3s, stroke 0.3s;
-  -o-transition: opacity 0.3s, fill 0.3s, stroke 0.3s;
-  transition: opacity 0.3s, fill 0.3s, stroke 0.3s;
-}
-
-.dsn-slider .footer-slid .control-nav .prev-container,
-.dsn-slider .footer-slid .control-nav .next-container,
-.dsn-slider .footer-slid .control-nav .play-container  {
-  display: inline-block;
+.dsn-slider .footer-slid .control-nav  i:hover{
+  color: #b7b7b7;
   cursor: pointer;
-  -webkit-transform: none;
-  -ms-transform: none;
-  transform: none;
 }
-
-.dsn-slider .footer-slid .control-nav .prev-container .icon-circle,
-.dsn-slider .footer-slid .control-nav .next-container .icon-circle,
-.dsn-slider .footer-slid .control-nav .play-container .icon-circle  {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  border: 1px solid;
-  border-radius: 50%;
-  top: 1px;
-  left: 3px;
-  opacity: 0;
-}
-
-.dsn-slider .footer-slid .control-nav .prev-container:hover .icon-circle,
-.dsn-slider .footer-slid .control-nav .next-container:hover .icon-circle,
-.dsn-slider .footer-slid .control-nav .play-container:hover .icon-circle {
-  opacity: 1;
-}
-
-.dsn-slider .footer-slid .control-nav .next-container svg {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-
-.dsn-slider .footer-slid .control-nav .prev-container {
-  margin-right: 20px;
-  transform: translateY(-50%)!important;
-}
-
-.dsn-slider .footer-slid .control-nav .prev-container svg {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-
+.dsn-slider .footer-slid .control-nav .play-container i {
+  font-size: 15px;
 }
 
 .dsn-slider .footer-slid .social-btn,
@@ -9787,9 +9778,9 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
 
 .dsn-slider .nav-slider {
   position: absolute;
-  width: 8%;
+  width: 3%;
   height: 30%;
-  top: 35%;
+  bottom: 0;
   z-index: 3;
   overflow: hidden;
 }
@@ -9922,7 +9913,6 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
   align-items: center;
   position: absolute;
   top: 50%;
-  left: 0;
   top: 50%;
   -webkit-transform: translate(0, -50%);
   -ms-transform: translate(0, -50%);
@@ -9932,7 +9922,7 @@ body.nav-active .dsn-nav-bar .icon-m .menu-icon__line {
 }
 
 .dsn-slider-content .slide-content .slide-content-inner {
-  padding-left: 12.5vw;
+  padding: 0 12.5vw;
 }
 
 .dsn-slider-content .slide-content .slide-content-inner .title-text-header {

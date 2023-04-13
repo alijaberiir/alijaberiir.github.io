@@ -1,0 +1,246 @@
+<script>
+    function background() {
+    $(".cover-bg, section , [data-image-src]").each(function () {
+        var e = $(this).attr("data-image-src");
+        void 0 !== e && !1 !== e && $(this).css("background-image", "url(" + e + ")");
+    });
+}
+
+!(function (e) {
+    "use strict";
+    function t(n) {
+            background(),
+            (function () {
+                const t = e(".dsn-slider"),
+                    n = 1.2;
+                return {
+                    initSlider: function () {
+                        const n = t.find(".slide-item"),
+                            a = t.find(".dsn-slider-content");
+                        n.each(function (t) {
+                            e(this).attr("data-dsn-id", t);
+                            let n = e(this).find(".slide-content");
+                            n.attr("data-dsn-id", t), 0 === t && n.addClass("dsn-active dsn-active-cat"), a.append(n);
+                            let i = n.find(".title-text-header-inner a");
+                            dsnGrid.convertTextLine(i, i);
+                        });
+                    },
+                    progress: function (e) {
+                        e.on("progress", function () {
+                            let e = this;
+                            for (let t = 0; t < e.slides.length; t++) {
+                                let n = e.slides[t].progress,
+                                    a = 0.5 * e.width,
+                                    i = n * a;
+                                e.slides[t].querySelector(".image-bg").style.transform = "translateX(" + i + "px) ";
+                            }
+                        });
+                    },
+                    slideChange: function (a) {
+                        var i = this;
+                        a.on("slideChange", function () {
+                            let o = t.find(".dsn-slider-content .dsn-active"),
+                                s = o.data("dsn-id");
+                            let r = e(a.slides[a.activeIndex]).data("dsn-id");
+                            if (s === r) return;
+                            t.find('[data-dsn="video"] video').each(function () {
+                                this.pause();
+                            });
+                            let l = e(this.slides[this.activeIndex]).find('[data-dsn="video"] video');
+                            l.length > 0 && l[0].play();
+                            let d = o.find(".dsn-chars-wrapper");
+                            o.removeClass("dsn-active-cat");
+                            let c = t.find('.dsn-slider-content [data-dsn-id="' + r + '"]'),
+                                u = c.find(".dsn-chars-wrapper"),
+                                f = s > r,
+                                h = new TimelineLite();
+                            h.staggerFromTo(dsnGrid.randomObjectArray(d, 0.3), 0.3, i.showText().title, i.hideText(f).title, 0.1, 0, function () {
+                                t.find(".dsn-slider-content .slide-content").removeClass("dsn-active"), t.find(".dsn-slider-content .slide-content").removeClass("dsn-active-cat"), c.addClass("dsn-active"), c.addClass("dsn-active-cat");
+                            }),
+                                h.staggerFromTo(dsnGrid.randomObjectArray(u, n), n, i.hideText(f).title, i.showText().title, 0.1, "-=.8");
+                        });
+                    },
+                    showText: function () {
+                        return { title: { autoAlpha: 1, x: "0%", scale: 1, rotation: 0, ease: Elastic.easeInOut, yoyo: !0 }, subtitle: { autoAlpha: 1, y: "0%", ease: Elastic.easeOut } };
+                    },
+                    hideText: function (e) {
+                        let t = "-90%";
+                        return e && (t = "90%"), { title: { autoAlpha: 0, x: t, rotation: 8, scale: 1.2, ease: Elastic.easeOut, yoyo: !0 }, subtitle: { autoAlpha: 0, y: t, ease: Elastic.easeOut } };
+                    },
+                    touchStart: function (e) {
+                        e.on("touchStart", function () {
+                            let e = this;
+                            for (let t = 0; t < e.slides.length; t++) e.slides[t].style.transition = "";
+                        });
+                    },
+                    setTransition: function (e) {
+                        e.on("setTransition", function (e) {
+                            let t = this;
+                            for (let n = 0; n < t.slides.length; n++) (t.slides[n].style.transition = e + "ms"), (t.slides[n].querySelector(".image-bg").style.transition = e + "ms");
+                        });
+                    },
+                    swiperObject: function () {
+                        return new Swiper(".dsn-slider .slide-inner", {
+                            speed: 1500,
+                            loop:!0,
+                            autoplay:{
+                                speed:1000,
+                            },
+                            allowTouchMove: !0,
+                            resistanceRatio: 0.65,
+                            navigation: { nextEl: ".dsn-slider .control-nav .next-container", prevEl: ".dsn-slider .control-nav .prev-container" },
+                            pagination: {
+                                el: ".dsn-slider .footer-slid .control-num span",
+                                type: "custom",
+                                clickable: !0,
+                                renderCustom: function (e, t, n) {
+                                    return dsnGrid.numberText(t);
+                                },
+                            },
+                            on: {
+                                init: function () {
+                                    this.autoplay.stop(),
+                                        t.find('[data-dsn="video"] video').each(function () {
+                                            this.pause();
+                                        });
+                                },
+                                imagesReady: function () {
+                                    let t = e(this.slides[this.activeIndex]).find('[data-dsn="video"] video');
+                                    t.length > 0 && t[0].play();
+                                },
+                            },
+                        });
+                    },
+                    run: function () {
+                        if (t.length <= 0) return;
+                        this.initSlider();
+                        var n = this.swiperObject();
+                        if ((this.progress(n), this.touchStart(n), this.setTransition(n), this.slideChange(n), e(".nav-slider").length <= 0)) return;
+                        let a = new Swiper(".nav-slider", { speed: 1500, slidesPerView: 3, centeredSlides: !0, touchRatio: 0.2, slideToClickedSlide: !0, direction: "vertical", resistanceRatio: 0.65 });
+                        (n.controller.control = a), (a.controller.control = n);
+                    },
+                };
+            })().run();
+            
+    }
+    function n() {
+        i.off("scroll");
+        let t = e(".dsn-nav-bar");
+        t.removeClass("header-stickytop");
+        let n = 0;
+        var a = e(".wrapper").offset(),
+            o = e(".header-single-post .container").offset(),
+            s = e(".post-full-content").offset(),
+            l = 0;
+        void 0 !== o ? (a = o) : a.top <= 70 && (a = s),
+            r.getListener(function (e) {
+                n = "scroll" === e.type ? i.scrollTop() : e.offset.y;
+                let o = 70;
+                void 0 !== a && (o = a.top - 100), n > o ? (l < n ? t.addClass("nav-bg").addClass("hide-nave") : t.removeClass("hide-nave")) : t.removeClass("nav-bg").removeClass("hide-nave"), (l = n);
+            });
+    }
+    function a() {
+        const t = window.Scrollbar;
+        var a = document.querySelector("#dsn-scrollbar");
+        return {
+            isMobile: function () {
+                return !!(
+                    navigator.userAgent.match(/Android/i) ||
+                    navigator.userAgent.match(/webOS/i) ||
+                    navigator.userAgent.match(/iPhone/i) ||
+                    navigator.userAgent.match(/iPad/i) ||
+                    navigator.userAgent.match(/iPod/i) ||
+                    navigator.userAgent.match(/BlackBerry/i) ||
+                    navigator.userAgent.match(/Windows Phone/i) ||
+                    navigator.userAgent.match(/Edge/i) ||
+                    navigator.userAgent.match(/MSIE 10/i) ||
+                    navigator.userAgent.match(/MSIE 9/i)
+                );
+            },
+            isMobiles: function () {
+                return !!(
+                    navigator.userAgent.match(/Android/i) ||
+                    navigator.userAgent.match(/webOS/i) ||
+                    navigator.userAgent.match(/iPhone/i) ||
+                    navigator.userAgent.match(/iPad/i) ||
+                    navigator.userAgent.match(/iPod/i) ||
+                    navigator.userAgent.match(/BlackBerry/i) ||
+                    navigator.userAgent.match(/Windows Phone/i) ||
+                    navigator.userAgent.match(/Edge/i) ||
+                    navigator.userAgent.match(/MSIE 10/i) ||
+                    navigator.userAgent.match(/MSIE 9/i) ||
+                    i.width() <= 991
+                );
+            },
+            isScroller: function (e) {
+                e && (a = document.querySelector("#dsn-scrollbar"));
+                let t = !o.hasClass("dsn-effect-scroll") || this.isMobile() || null === a;
+                return t && e && o.addClass("dsn-mobile"), !t;
+            },
+            locked: function () {
+                if ((o.addClass("locked-scroll"), this.isScroller())) {
+                    let e = this.getScrollbar();
+                    void 0 !== e && e.destroy();
+                }
+            },
+            unlocked: function () {
+                o.removeClass("locked-scroll"), this.start(), n(), l.allInt(), dsnGrid.progressCircle(r);
+            },
+            getScrollbar: function (e) {
+                return void 0 === e ? t.get(a) : t.get(document.querySelector(e));
+            },
+            getListener: function (e) {
+                if (void 0 !== e) {
+                    var t = this;
+                    t.isScroller(!0) ? t.getScrollbar().addListener(e) : i.on("scroll", e);
+                }
+            },
+            start: function () {
+                if (
+                    (dsnGrid.scrollTop(0, 1),
+                    e(".scroll-to").on("click", function (t) {
+                        t.preventDefault();
+                        let n = i;
+                        r.isScroller(!0) && (n = r.getScrollbar()), TweenLite.to(n, 1.5, { scrollTo: e(".wrapper").offset().top, ease: Expo.easeInOut });
+                    }),
+                    !this.isScroller(!0))
+                )
+                    return;
+                let n = 0.05;
+                this.isMobiles() && (n = 0.02), t.init(a, { damping: n }), this.workScroll();
+            },
+            sliderScroll: function () {
+                t.init(document.querySelector(".slider .main-slider .slider-nav-list"), { damping: 0.05 });
+            },
+            menuScroll: function () {
+                t.init(document.querySelector(".nav__content"), { damping: 0.05 });
+            },
+            commentScroll: function () {
+                const e = document.querySelector(".comment-modal .comment-modal-container");
+                null !== e && t.init(e, { damping: 0.05 });
+            },
+            sidebarScroll: function () {
+                const e = document.querySelector(".dsn-sidebar .sidebar-single");
+                null !== e && t.init(e, { damping: 0.05 });
+            },
+            workScroll: function () {
+                const e = document.querySelector(".dsn-all-work .dsn-work-scrollbar");
+                null !== e && t.init(e, { damping: 0.05 });
+            },
+        };
+    }
+    const i = e(window),
+        o = e("body"),
+        s = { animateTextAjax: '.headefr-fexid .project-title .title-text-header .cat ,[data-dsn-animate="ajax"] , footer, .next-project , .root-project' };
+    (navigator.userAgent.match(/Edge/i) || navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/MSIE 9/i)) && e(".cursor").css("display", "none")
+ 
+        t(),
+        i.on("popstate", function (n) {
+            e("main.main-root").load(document.location + " main.main-root > *", function () {
+                t(!0), a().unlocked();
+            });
+        }),
+        n();
+})(jQuery);
+
+</script>
